@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+
+</head>
+<body>
+
+	<div id="app-3">
+		<button type="button" class="btn btn-primary" @click="recuperePosts" >Primary</button> 
+		{{test}} 
+
+		<div v-for="post in posts" class="d-none col-sm-3 d-sm-block">
+			<div class="col-sm-6 offset-sm-1">
+
+
+			
+
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">	{{post.title.rendered}}</h5> 
+					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					<a :href="post.link" class="btn btn-primary">Go somewhere</a>
+
+
+
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+	</script>
+	<script>
+		var app3 = new Vue({
+			el: '#app-3',
+			data: {
+				seen: true,
+				posts: [], 
+				test: "Coucou"
+			},
+			methods:{
+				recuperePosts: function() {
+					vm = this
+					fetch('https://aer-recyclage.com/wp-json/wp/v2/posts')
+					.then(function(response){
+						response.json()
+						.then(function(response){
+							console.log(response)
+							vm.posts = response
+
+
+						})    
+					})
+
+				}
+			}
+		})
+	</script>
+</body>
+
+<!-- 1- Ligne 7 : Le lien est celui de bootsrap pour que bootstrap soit importé automatiquement
+	 2- Ligne 11 : App3 est le nom de la variable elle permet de récupérer le site wordpress 
+	 3- Ligne 12 : Le bouton est cliquable, il récupère les derniers posts du site wordpress (formule @click)
+	    Ligne 17 : Pour mettre le site responsive
+	 4- Ligne 15 : v-for permet d'afficher les titres des articles 
+	 5- Ligne 19 : Le lien pour l'importation de vue pour nous permettre de récupérer les postsde
+	 6- Ligne 26 : Les deux crochets signifient l'importation d'un tableau (les posts dans un tableau)
+	 7- Ligne 30 : La formule du prof permet 
+	 Des que c'est du vue faut mettre :
